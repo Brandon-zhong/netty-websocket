@@ -20,9 +20,9 @@ public class Request {
     /**
      * 数据
      */
-    private byte[] data;
+    private String data;
 
-    public static Request valueOf(short module, short cmd, byte[] data) {
+    public static Request valueOf(short module, short cmd, String data) {
         Request request = new Request();
         request.setModule(module);
         request.setCmd(cmd);
@@ -30,11 +30,11 @@ public class Request {
         return request;
     }
 
-    public byte[] getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(byte[] data) {
+    public void setData(String data) {
         this.data = data;
     }
 

@@ -14,7 +14,7 @@ public class InvokerManager {
     /**
      * 命令调用器
      */
-    private static Map<Short, Map<Short, Invoker>> invokers = new HashMap<>();
+    private static Map<Short, Map<Short, Invoker>> invokers = new HashMap<Short, Map<Short, Invoker>>();
 
     /**
      * 增加命令调用器
@@ -26,7 +26,7 @@ public class InvokerManager {
     public static void addInvoker(short module, short cmd, Invoker invoker) {
         Map<Short, Invoker> map = invokers.get(module);
         if (null == map) {
-            map = new HashMap<>();
+            map = new HashMap<Short, Invoker>();
             invokers.put(module, map);
         }
         map.put(cmd, invoker);

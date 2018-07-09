@@ -16,6 +16,6 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        new Thread().start();
+        new Thread(new WebSocketServer()).start();
     }
 }

@@ -1,6 +1,7 @@
 package com.netty4.common;
 
 import io.netty.channel.Channel;
+import io.netty.util.AttributeKey;
 
 /**
  * 管道封装类
@@ -9,6 +10,11 @@ import io.netty.channel.Channel;
  * Created by brandon on 2018/7/8.
  */
 public class SessionImpl implements Session {
+
+    /**
+     * 绑定对象key
+     */
+    public static AttributeKey<Object> ATTACHMENT_KEY = AttributeKey.valueOf("ATTACHMENT_KEY");
 
     /**
      * 管道对象
@@ -26,6 +32,21 @@ public class SessionImpl implements Session {
     public SessionImpl(Channel channel) {
         this.channel = channel;
         this.lastUseTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public Object getAttachment() {
+        return channel.attr(ATTACHMENT_KEY).get();
+    }
+
+    @Override
+    public void setAttachment(Object attachment) {
+        channel.attr(ATTACHMENT_KEY).set(attachment);
+    }
+
+    @Override
+    public void removeAttachment() {
+        channel.attr(ATTACHMENT_KEY).remove();
     }
 
     @Override

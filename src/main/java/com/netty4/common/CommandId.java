@@ -9,18 +9,23 @@ package com.netty4.common;
 public interface CommandId {
 
     /**
+     * 连接命令号
+     */
+    short CONNECT = 10;
+
+    /**
      * 私聊消息命令号
      */
-    short PRIVATE_CHAT = 10;
+    short PRIVATE_CHAT = 11;
 
     /**
      * 群聊消息命令号
      */
-    short PUBLIC_CHAT = 11;
+    short PUBLIC_CHAT = 12;
 
     /**
      * 广播消息命令号
      */
-    short REDIO = 12;
+    short REDIO = 13;
 
 }

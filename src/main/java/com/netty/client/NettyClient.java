@@ -1,5 +1,6 @@
 package com.netty.client;
 
+import com.netty4.common.*;
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.channel.*;
 import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
@@ -29,12 +30,15 @@ public class NettyClient {
         bootstrap.setFactory(new NioClientSocketChannelFactory(boss, worker));
 
         //管道工厂
-        bootstrap.setPipelineFactory(() -> {
-            ChannelPipeline pipeline = Channels.pipeline();
-            pipeline.addLast("decoder", new StringDecoder());
-            pipeline.addLast("encoder", new StringEncoder());
-//                pipeline.addLast("hiHandler", new HiHandler());
-            return pipeline;
+        bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
+            @Override
+            public ChannelPipeline getPipeline() throws Exception {
+                ChannelPipeline pipeline = Channels.pipeline();
+                pipeline.addLast("decoder", new StringDecoder());
+                pipeline.addLast("encoder", new StringEncoder());
+                pipeline.addLast("hiHandler", new HiHandler());
+                return pipeline;
+            }
         });
 
         //连接服务端
@@ -43,19 +47,16 @@ public class NettyClient {
         Channel channel = connect.getChannel();
         Scanner scanner = new Scanner(System.in);
         boolean flag = true;
-//        while (flag) {
-//            System.out.println("请输入");
-//            String line = scanner.nextLine();
-//            if ("exit".equals(line.trim())) {
-//                flag = false;
-//                channel.close();
-//                System.out.println("连接关闭");
-//                break;
-//            }
-//            channel.write(line);
-//        }
-        for (int i = 0; i < 100; i++) {
-            channel.write("hello " + i);
+        while (flag) {
+            System.out.println("请输入");
+            String line = scanner.nextLine();
+            if ("exit".equals(line.trim())) {
+                flag = false;
+                channel.close();
+                System.out.println("连接关闭");
+                break;
+            }
+            channel.write(line);
         }
     }
 

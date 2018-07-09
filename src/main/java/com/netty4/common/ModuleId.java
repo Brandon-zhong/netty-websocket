@@ -11,37 +11,37 @@ public interface ModuleId {
     /**
      * chat模块号
      */
-    byte CHAT = 1;
+    short CHAT = 1;
 
     /**
      * message模块号
      */
-    byte MESSAGE = 2;
+    short MESSAGE = 2;
 
     /**
      * notice模块号
      */
-    byte NOTICE = 3;
+    short NOTICE = 3;
 
     /**
      * order模块号
      */
-    byte ORDER = 4;
+    short ORDER = 4;
 
     /**
      * user模块号
      */
-    byte USER = 5;
+    short USER = 5;
 
     /**
      * wallet模块号
      */
-    byte WALLET = 6;
+    short WALLET = 6;
 
     /**
      * 管道心跳
      */
-    byte HEART = 7;
+    short HEART = 7;
 
 
 }

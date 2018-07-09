@@ -12,7 +12,6 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.HttpRequestHandler;
 
 
 @Component
@@ -38,10 +37,11 @@ public class WebSocketServer implements Runnable {
                             pipeline.addLast(new HttpServerCodec());
                             pipeline.addLast(new HttpObjectAggregator(64 * 1024));
                             pipeline.addLast(new ChunkedWriteHandler());
+                            pipeline.addLast(new HttpRequestHandler("/ws"));
                             pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
+                            pipeline.addLast(new ServerHandler());
                         }
-                    })
-                    .option(ChannelOption.SO_BACKLOG, 128)
+                    }).option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
             ChannelFuture f = b.bind(8090).sync();
             f.channel().closeFuture().sync();

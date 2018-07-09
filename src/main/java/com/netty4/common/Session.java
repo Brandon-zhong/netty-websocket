@@ -7,6 +7,27 @@ package com.netty4.common;
  */
 public interface Session {
 
+    /**
+     * 会话绑定对象
+     *
+     * @return
+     */
+    Object getAttachment();
+
+    /**
+     * 绑定对象
+     *
+     * @return
+     */
+    void setAttachment(Object attachment);
+
+    /**
+     * 移除绑定对象
+     *
+     * @return
+     */
+    void removeAttachment();
+
 
     /**
      * 向会话中写入消息

@@ -16,7 +16,7 @@ public class SessionManager {
     /**
      * 存在在线的会话
      */
-    private static Map<Long, Session> userChannels = new ConcurrentHashMap<>();
+    private static Map<Long, Session> userChannels = new ConcurrentHashMap<Long, Session>();
 
     /**
      * 加入session
@@ -28,7 +28,10 @@ public class SessionManager {
     public static boolean putSession(long userId, Session session) {
 
         if (!userChannels.containsKey(userId)) {
-            return userChannels.putIfAbsent(userId, session) == null ? true : false;
+            Session put = userChannels.put(userId, session);
+            if (put == null) {
+                return true;
+            }
         }
         return false;
     }
@@ -58,7 +61,7 @@ public class SessionManager {
      *
      * @return
      */
-    public static Set<Long> getOnlineUser() {
+    public static Set<Long> getOnlineUsers() {
         return Collections.unmodifiableSet(userChannels.keySet());
     }
 

@@ -25,7 +25,7 @@ public class Response {
     /**
      * 数据
      */
-    private byte[] data;
+    private String data;
 
     public Response() {
     }
@@ -35,7 +35,7 @@ public class Response {
         this.cmd = message.getCmd();
     }
 
-    public Response(short module, short cmd, byte[] data) {
+    public Response(short module, short cmd, String data) {
         this.module = module;
         this.cmd = cmd;
         this.data = data;
@@ -49,11 +49,11 @@ public class Response {
         this.stateCode = stateCode;
     }
 
-    public byte[] getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(byte[] data) {
+    public void setData(String data) {
         this.data = data;
     }
 

@@ -37,14 +37,17 @@ public class NettyServer {
         HashedWheelTimer timer = new HashedWheelTimer();
 
         //设置管道的工厂
-        bootstrap.setPipelineFactory(() -> {
-            ChannelPipeline pipeline = Channels.pipeline();
-            pipeline.addLast("decoder", new MyDecoder());
-//            pipeline.addLast("encoder", new StringEncoder());
-            pipeline.addLast("hello", new HelloHandler());
+        bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
+            @Override
+            public ChannelPipeline getPipeline() throws Exception {
+                ChannelPipeline pipeline = Channels.pipeline();
+//                pipeline.addLast("decoder", new MyDecoder());
+                pipeline.addLast("encoder", new StringEncoder());
+                pipeline.addLast("hello", new HelloHandler());
 //            pipeline.addLast("", new IdleStateHandler(timer, 5, 5, 10));
 //            pipeline.addLast("heartHandler", new HeartHandler());
-            return pipeline;
+                return pipeline;
+            }
         });
 
         bootstrap.bind(new InetSocketAddress(1996));
